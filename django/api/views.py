@@ -15,3 +15,13 @@ def getNote(request, pk):
     note = Note.objects.get(pk=pk)
     serializer = NoteSerializer(note, many=False)
     return Response(serializer.data)
+
+@api_view(['PUT'])
+def updateNote(request, pk):
+    note = Note.objects.get(pk=pk)
+    serializer = NoteSerializer(instance=note, data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+        
+    return Response(serializer.data)
