@@ -12,9 +12,21 @@ const Note = () => {
     }, []);
 
     const getNote = async () => {
+        if (id == 'new') return
+
         const response = await fetch(`/api/notes/${id}`);
         const note = await response.json();
         setNote(note);
+    }
+
+    const createNote = async () => {
+        fetch(`/api/notes/new/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(note)
+        })
     }
 
     const updateNote = async () => {
@@ -41,7 +53,14 @@ const Note = () => {
     const navigate = useNavigate();
 
     const handleSubmit = () => {
-        updateNote();
+        if (id !== 'new' && !note.body) {
+            deleteNote();
+        } else if (id !== 'new') {
+            updateNote();
+        } else if (id === 'new') {
+            createNote();
+        }
+
         navigate('/');
     }
 
@@ -51,10 +70,12 @@ const Note = () => {
                 <h3>
                     <ArrowLeft onClick={handleSubmit} />
                 </h3>
-                
-                <button onClick={deleteNote}>Delete</button>
+
+                {id !== 'new' ? (
+                    <button onClick={deleteNote}>Delete</button>
+                    ) : ''}
             </div>
-            <textarea onChange={(e) => setNote({...note, body: e.target.value})} defaultValue={note?.body}></textarea>
+            <textarea onChange={(e) => setNote({...note, body: e.target.value})} value={note?.body}></textarea>
         </div>
     )
 }

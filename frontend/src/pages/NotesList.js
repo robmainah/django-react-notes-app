@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ListItem from "../components/ListItem";
+import AddNote from "../components/AddNote";
 
 const NotesList = () => {
     const [notes, setNotes] = useState([]);
@@ -20,9 +21,13 @@ const NotesList = () => {
                 <h2 className="notes-title">&#9782; Notes</h2>
                 <p className="notes-count">{notes.length}</p>
             </div>
-            {notes.map((note, index) => (
-                <ListItem note={note} key={note.id} />
-            ))}
+            <div className="notes-list">
+                {notes.map((note, index) => (
+                    <ListItem note={note} key={note.id} />
+                ))}
+            </div>
+            
+            <AddNote />
         </div>
     );
 }
