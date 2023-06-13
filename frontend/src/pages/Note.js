@@ -73,7 +73,7 @@ const Note = () => {
 
                 {id !== 'new' ? (
                     <button onClick={deleteNote}>Delete</button>
-                    ) : ''}
+                    ) : <button onClick={handleSubmit}>Done</button>}
             </div>
             <textarea onChange={(e) => setNote({...note, body: e.target.value})} value={note?.body}></textarea>
         </div>
