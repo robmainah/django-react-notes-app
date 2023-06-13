@@ -2,7 +2,7 @@ import './App.css';
 import Header from './components/Header';
 import Note from './pages/Note';
 import NotesList from './pages/NotesList';
-import { BrowserRouter as Router, Routes, Route  } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route  } from 'react-router-dom';
 
 function App() {
   return (
